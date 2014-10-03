@@ -1,0 +1,4 @@
+# Sample config file - add more fields here as needed
+super-admins:
+  - admin1@gmail.com
+  - admin2@gmail.com

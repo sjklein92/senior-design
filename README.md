@@ -14,8 +14,9 @@ Website editor for Jekyll sites
 
   ```
   export WORKON_HOME=$HOME/.venvs
-  source /usr/bin/virtualenvwrapper.sh
+  source /usr/local/bin/virtualenvwrapper.sh
   ```
+  **Note:** location of virtualenvwrapper.sh depends on your distribution, it might also be in `/usr/bin`.
 
 3. Create a virtualenv for the project
 
@@ -24,3 +25,4 @@ Website editor for Jekyll sites
   ```
   
 4. When working on the project, don't forget to run `workon chimera`, and when leaving, run `deactivate` to restore your normal Python setup.
+5. Run `pip install -r requirements.txt` to install all needed Python modules.
