@@ -1,0 +1,6 @@
+SUPER_ADMIN = "your.username@gmail.com"
+GOOGLE_OAUTH2_CLIENT_ID = "your-client-id.apps.googleusercontent.com"
+GOOGLE_OAUTH2_CLIENT_SECRET = "your-client-secret"
+
+CSRF_SESSION_KEY = "change this to a long random string"
+SECRET_KEY = "change this to a different long random string"

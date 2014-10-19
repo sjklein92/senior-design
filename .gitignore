@@ -1,5 +1,5 @@
 # Our app:
-config.yml
+application.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

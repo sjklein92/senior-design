@@ -1,19 +1,14 @@
 from flask import Flask, render_template
-import chimera.auth as auth
 
-app = Flask(__name__)
-app.config.from_object('config')
-
-import yaml
-f = open('config.yml')
-conf = yaml.safe_load(f)
-f.close()
-del(f)
-
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('chimera.default_config')
+app.config.from_pyfile('application.cfg')
 
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
+
+import chimera.auth as auth
 
 @app.route('/')
 def index():

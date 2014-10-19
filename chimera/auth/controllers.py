@@ -9,7 +9,9 @@ login_manager.login_view = 'auth.login'
 
 @module.record_once
 def on_load(state):
+    global config
     login_manager.init_app(state.app)
+    config = state.app.config
 
 @login_manager.user_loader
 def load_user(userid):
@@ -18,7 +20,6 @@ def load_user(userid):
 @module.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        print(request.form)
         u = load_user(request.form.get('email'))
         login_user(u)
         return redirect(request.args.get('next', '/'))
