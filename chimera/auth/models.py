@@ -7,3 +7,6 @@ class User(flask.ext.login.UserMixin):
 
     def __init__(self, email):
         self.id = email
+
+    def save(self):
+        pass
