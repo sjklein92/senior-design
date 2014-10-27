@@ -9,29 +9,39 @@
 </head>
 <body>
    <!-- container setup -->
-   <div id="jstree">
+   <div class="container">
+   <div id="jstree" style="float: left; margin-right: 50px;">
    <ul>
-        <li>MY EXTREMELY COMPLEX WEBSITE, YOU WOULDN'T UNDERSTAND
+        <li>root 1
             <ul>
                 <li id="child_node_1">index.html</li>
                 <li>style.css</li>
             </ul>
         </li>
-        <li>Other folder</li>
+        <li>root 2</li>
     </ul>
     </div>
-    <button>I dunno</button>
+
+    <div id="preview">
+    	<p>Hey buddy.</p>
+    </div>
+    
+    <div id="actions"\>
+    <button>Preview</button>
+    <button>Publish</button>
+    </div>
+    </div>
 <script src="libs/jquery/dist/jquery.js"></script>
 <script src="libs/jstree/jstree.min.js"></script>
 <script>
 $(function () {
-    // 6 create an instance when the DOM is ready
+    // create an instance when the DOM is ready
     $('#jstree').jstree();
-    // 7 bind to events triggered on the tree
+    //  bind to events triggered on the tree
     $('#jstree').on("changed.jstree", function (e, data) {
       console.log(data.selected);
     });
-    // 8 interact with the tree - either way is OK
+    //  interact with the tree - either way is OK
     $('button').on('click', function () {
       $('#jstree').jstree(true).select_node('child_node_1');
       $('#jstree').jstree('select_node', 'child_node_1');
