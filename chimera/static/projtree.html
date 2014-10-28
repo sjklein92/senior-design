@@ -37,6 +37,7 @@
 <!-- page contents -->
 <div class="container">
   <div class="row">
+  <div class="col-sm-4">
     <div id="jstree" style="float: left; margin-right: 50px;">
       <ul>
         <li>mySite
@@ -46,13 +47,20 @@
           </ul>
         </li>
       </ul>
+    </div>
   </div>
+  <div class="col-sm-4">
     <pre id="editor">
-    
+
     </pre>
   </div>
+  <div class="col-sm-4">
+    <div id="preview">
+    <iframe src="" style="width: 400px; height: 400px;">Your browser doesn't support iFrames.</iframe>
+    </div>
+  </div>
+  </div>
 
-  <div class="form-group">
     <div id="actions"/>
       <button type="submit" class="btn btn-default">
         <span class="glyphicon glyphicon-eye-open"></span> Preview
@@ -61,7 +69,6 @@
         <span class="glyphicon glyphicon-upload"></span> Publish
       </button>
     </div>
-  </div>
 
 </div>
 
