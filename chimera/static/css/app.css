@@ -5,9 +5,7 @@
 #jstree {
 	display: block; 
 	float: left;
-	padding: 10px 20px;
-	background: #dddddd;
-	
+	padding: 10px 10px;
 	border-radius: 8px;
 }
 
