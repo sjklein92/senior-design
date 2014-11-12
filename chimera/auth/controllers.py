@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, abort, url_for
 from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user
-from chimera.auth.models import User
+from chimera.auth.models import User, init_db
 from urllib import urlencode
 from urlparse import parse_qs
 import requests
@@ -10,11 +10,23 @@ module = Blueprint('auth', __name__, template_folder='templates')
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
+def permission_required(permission):
+    def perm_decorator(func):
+        def decorated_view(*args, **kwargs):
+            if not current_user.is_authenticated:
+                return login_manager.unauthorized()
+            elif not current_user.has_permission(permission):
+                return "You don't have permission for that.", 401
+            return func(*args, **kwargs)
+        return decorated_view
+    return perm_decorator
+
 @module.record_once
 def on_load(state):
     global config
     login_manager.init_app(state.app)
     config = state.app.config
+    init_db(config)
 
 @login_manager.user_loader
 def load_user(userid):
@@ -65,11 +77,13 @@ def callback():
     email = userinfo_resp['email']
 
     user = User.get(email)
-    if user.is_authenticated():
+    if user.is_authenticated() and user.is_active():
         user.access_token = token
         user.save()
         login_user(user)
         return redirect(state['next'][0])
+    elif user.is_authenticated():
+        return "Not authorized. The site admin must add you to the list of users before you can log in.", 401
     else:
         return "Not authenticated.", 401
 
@@ -80,6 +94,6 @@ def logout():
     return redirect('/')
 
 @module.route('/protected')
-@login_required
+@permission_required('secret')
 def protected():
-    return 'Secret content which requires login'
+    return 'Secret content which requires permissions'
