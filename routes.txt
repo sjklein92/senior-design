@@ -1,0 +1,22 @@
+GET /login
+GET /logout
+
+GET /files (single-page editor)
+
+GET /api/files (full directory structure w/dirty state)
+GET /api/files/...
+PUT /api/files/...
+DELETE /api/files/...
+Can we upload images/etc to a PUT route or do we need a POST?
+
+POST /api/commit (probably just needs a (optional?) message)
+
+GET /users
+GET /users/new
+GET /users/<id>
+POST /users
+PUT /users/<id>
+DELETE /users/<id>
+
+POST /api/generate (trigger compilation)
+GET /preview/... (static _site)
