@@ -28,14 +28,16 @@ class User(flask.ext.login.UserMixin):
         else:
             doc = {}
         self.access_token = doc.get('access_token', None)
+        self.folder_path = doc.get('folder_path', None)
         self.super_admin = doc.get('super_admin', False)
         self.permissions = doc.get('permissions', {})
         self._rev = doc.get('_rev', None)
 
     def save(self):
         doc = {"_id": self.id, "_rev": self._rev, "access_token":
-                self.access_token, "super_admin": self.super_admin,
-                "permissions": self.permissions}
+                self.access_token, "folder_path": self.folder_path,
+                "super_admin": self.super_admin, "permissions":
+                self.permissions}
         db.save(doc)
 
     def is_active(self):

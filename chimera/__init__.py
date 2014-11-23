@@ -18,3 +18,5 @@ def index():
         return render_template('banner.html')
 
 app.register_blueprint(auth.module)
+
+import chimera.files
