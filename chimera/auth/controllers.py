@@ -108,7 +108,6 @@ def protected():
     return 'Secret content which requires permissions'
 
 def create_temp_folder(user, url):
-    os.makedirs(config['STORAGE_PATH'])
-    user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
-	chigit.cloneRepo(url,confit['STORAGE_PATH'])
-	
+	os.makedirs(config['STORAGE_PATH'])
+	user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
+	chigit.cloneRepo(url,config['STORAGE_PATH'])

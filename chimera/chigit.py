@@ -8,13 +8,13 @@ def getGitFiles(self,filePath):
 	filesList.extend(repo.untracked_files)
 	return filesList
 	
-def cloneRepo(self,url,filePath)
+def cloneRepo(self,url,filePath):
 	git.Repo(url,filePath)
 
 def login(self):
 	pass
 	
-def statuses(self, filePath)
+def statuses(self, filePath):
 	repo=git.Repo(filePath)
 	statusString=repo.git.status('-s')
 	statuslist=statusString.split('\n')
