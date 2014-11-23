@@ -6,6 +6,7 @@ from urlparse import parse_qs
 import os
 import requests
 import tempfile
+import chigit
 
 module = Blueprint('auth', __name__, template_folder='templates')
 
@@ -106,7 +107,8 @@ def logout():
 def protected():
     return 'Secret content which requires permissions'
 
-def create_temp_folder(user):
-    # TODO make this clone a git repo
+def create_temp_folder(user, url):
     os.makedirs(config['STORAGE_PATH'])
     user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
+	chigit.cloneRepo(url,confit['STORAGE_PATH'])
+	
