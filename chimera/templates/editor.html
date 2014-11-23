@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}Editor{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-4">
+    <div id="jstree" style="float: left; margin-right: 50px;">
+
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <pre id="editor">
+
+    </pre>
+  </div>
+  <div class="col-sm-4">
+    <div id="preview">
+      <iframe src="/preview/" style="width: 400px; height: 400px;">Your browser doesn't support iFrames.
+        #document
+        <!DOCTYPE html>
+        <html il8n-values="dir:textdirection" subframe dir="ltr">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            <title il8n-content="title">file:///preview/ is not found</title>
+          </head>
+        </html>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<div id="actions"/>
+  <button type="submit" class="btn btn-default">
+    <span class="glyphicon glyphicon-eye-open"></span> Preview
+  </button>
+  <button type="submit" class="btn btn-default">
+    <span class="glyphicon glyphicon-upload"></span> Publish
+  </button>
+</div>
+{% endblock %}
+
+{% block foot %}
+<script src="/static/libs/jstree/jstree.min.js"></script>
+<script src="/static/libs/ace/ace.js"></script>
+<script>
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/javascript");
+</script>
+<script>
+  $("#treeCell").jstree({
+      "json_data" : {
+            'ajax': {
+                'url': myURL,
+                'type': 'GET',
+                'data': function(node) {
+                    return {
+                        'nodeId': node.attr ? node.attr("id") : ''
+                    };
+                }
+            },
+            'progressive_render': true,
+            'progressive_unload': false
+         },
+      "core" : {"html_titles" : true,  "load_open" : true },
+      "plugins" : [ "themes", "json_data", "ui", "cookies", "crrm", "sort" ]
+  });
+</script>
+{% endblock %}

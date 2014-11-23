@@ -12,6 +12,9 @@ import chimera.auth as auth
 
 @app.route('/')
 def index():
-    return "In main, User: %s"%auth.current_user.get_id()
+    if auth.current_user.is_authenticated():
+        return render_template('editor.html', user=auth.current_user.get_id())
+    else:
+        return render_template('banner.html')
 
 app.register_blueprint(auth.module)
