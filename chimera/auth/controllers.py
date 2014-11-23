@@ -6,7 +6,7 @@ from urlparse import parse_qs
 import os
 import requests
 import tempfile
-import chigit
+import chimera.chigit as git
 
 module = Blueprint('auth', __name__, template_folder='templates')
 
@@ -110,4 +110,4 @@ def protected():
 def create_temp_folder(user, url):
 	os.makedirs(config['STORAGE_PATH'])
 	user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
-	chigit.cloneRepo(url,config['STORAGE_PATH'])
+	git.cloneRepo(url,config['STORAGE_PATH'])
