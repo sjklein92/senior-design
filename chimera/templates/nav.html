@@ -9,6 +9,13 @@
       <a class="navbar-brand" href="#">Chimera</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-left">
+        {% if user is defined %}
+          <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> File Tree</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span> Preview</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-cloud-upload"></span> Publish</a></li>
+        {% endif %}
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user is defined %}
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user }}</a></li>
