@@ -26,3 +26,6 @@ Website editor for Jekyll sites
   
 4. When working on the project, don't forget to run `workon chimera`, and when leaving, run `deactivate` to restore your normal Python setup.
 5. Run `pip install -r requirements.txt` to install all needed Python modules.
+6. Copy `instance/application.cfg.example` to `instance/application.cfg` and edit as needed.
+7. Install CouchDB. Ensure it is running.
+8. Run the application with `python run.py` (while in the virtualenv). The database should be initialized automatically.
