@@ -1,5 +1,6 @@
 from flask import Flask, render_template, abort, json, send_file, request
 import os
+import chimera.chigit as git
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('chimera.default_config')
@@ -33,7 +34,7 @@ def make_plain(data, status=200, headers={}):
 @app.route('/api/files')
 @auth.login_required
 def files_index():
-    return make_json({"foo":"bar"})
+    return make_json(git.getGitFiles(None, auth.current_user.folder_path))
 
 @app.route('/api/files/<path:path>')
 @auth.login_required

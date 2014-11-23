@@ -2,3 +2,4 @@ Flask>=0.10.1
 Flask-Login>=0.2.11
 requests>=2.4.3
 CouchDB>=0.10
+GitPython>=0.3.2.1
