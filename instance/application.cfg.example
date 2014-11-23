@@ -5,3 +5,5 @@ DB_URL = 'http://localhost:5984'
 
 CSRF_SESSION_KEY = "change this to a long random string"
 SECRET_KEY = "change this to a different long random string"
+
+STORAGE_PATH = "/tmp/chimera"

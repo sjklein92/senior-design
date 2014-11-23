@@ -3,7 +3,9 @@ from flask.ext.login import LoginManager, login_user, logout_user, login_require
 from chimera.auth.models import User, init_db
 from urllib import urlencode
 from urlparse import parse_qs
+import os
 import requests
+import tempfile
 
 module = Blueprint('auth', __name__, template_folder='templates')
 
@@ -79,6 +81,8 @@ def callback():
     user = User.get(email)
     if user.is_authenticated() and user.is_active():
         user.access_token = token
+        if not user.folder_path:
+            create_temp_folder(user)
         user.save()
         login_user(user)
         flash('Logged in.')
@@ -101,3 +105,8 @@ def logout():
 @permission_required('secret')
 def protected():
     return 'Secret content which requires permissions'
+
+def create_temp_folder(user):
+    # TODO make this clone a git repo
+    os.makedirs(config['STORAGE_PATH'])
+    user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
