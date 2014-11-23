@@ -34,7 +34,28 @@ def make_plain(data, status=200, headers={}):
 @app.route('/api/files')
 @auth.login_required
 def files_index():
-    return make_json(git.getGitFiles(None, auth.current_user.folder_path))
+    raw = git.getGitFiles(None, auth.current_user.folder_path)
+    tree1 = {}
+    for f in raw:
+        parts = f.split(os.path.sep)
+        cur = tree1
+        for part in parts:
+            if not(part in cur):
+                cur[part] = {}
+            cur = cur[part]
+    tree2 = tree_transform(tree1, '/')
+    return make_json(tree2["children"])
+
+def tree_transform(tree, name):
+    children = []
+    ans = {"text": name}
+    for k in tree:
+        if tree[k] == {}:
+            children.append({"text": k, "icon": "leaf"})
+        else:
+            children.append(tree_transform(tree[k], k))
+    ans["children"] = sorted(children)
+    return ans
 
 @app.route('/api/files/<path:path>')
 @auth.login_required
