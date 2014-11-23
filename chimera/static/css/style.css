@@ -1,0 +1,20 @@
+.container {
+	
+}
+
+#jstree {
+	display: block; 
+	float: left;
+	padding: 10px 20px;
+	background: #dddddd;
+	
+	border-radius: 8px;
+}
+
+#preview {
+	
+}
+
+#actions {
+	clear: both;
+}
