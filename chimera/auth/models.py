@@ -21,6 +21,10 @@ class User(flask.ext.login.UserMixin):
     def get(email):
         return User(email)
 
+    @staticmethod
+    def all_ids():
+        return sorted(list(db))
+
     def __init__(self, email):
         self.id = email
         if self.id in db:

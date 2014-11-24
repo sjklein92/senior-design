@@ -17,8 +17,8 @@
         {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {% if user is defined %}
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user }}</a></li>
+        {% if user_id is defined %}
+        <li><a href="{{ url_for('users.edit', id=user_id) }}"><span class="glyphicon glyphicon-user"></span> {{ user_id }}</a></li>
           <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         {% else %}
           <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

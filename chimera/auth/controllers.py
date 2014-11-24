@@ -1,5 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, abort, url_for, flash
 from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user
+from functools import wraps
 from chimera.auth.models import User, init_db
 from urllib import urlencode
 from urlparse import parse_qs
@@ -15,11 +16,13 @@ login_manager.login_view = 'auth.login'
 
 def permission_required(permission):
     def perm_decorator(func):
+        @wraps(func)
         def decorated_view(*args, **kwargs):
             if not current_user.is_authenticated:
                 return login_manager.unauthorized()
             elif not current_user.has_permission(permission):
-                return "You don't have permission for that.", 401
+                flash("You don't have permission for that.", 'danger')
+                return redirect('/')
             return func(*args, **kwargs)
         return decorated_view
     return perm_decorator
@@ -69,14 +72,16 @@ def callback():
         "grant_type": "authorization_code"
     }).json()
     if 'error' in token_resp:
-        return token_resp.get('error_description', token_resp['error']), 401
+        flash(token_resp.get('error_description', token_resp['error']), 'danger')
+        return redirect('/')
 
     token = token_resp['access_token']
     # Make an API request to get the actual email address
     userinfo_resp = requests.get(config['GOOGLE_API_URL']+'userinfo', params={"alt":"json"},
             headers={"Authorization": "Bearer "+token}).json()
     if 'error' in userinfo_resp:
-        return userinfo_resp.get('error_description', userinfo_resp['error']), 401
+        flash(userinfo_resp.get('error_description', userinfo_resp['error']), 'danger')
+        return redirect('/')
     email = userinfo_resp['email']
 
     user = User.get(email)
@@ -107,7 +112,9 @@ def logout():
 def protected():
     return 'Secret content which requires permissions'
 
-def create_temp_folder(user, url):
-	os.makedirs(config['STORAGE_PATH'])
-	user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
-	git.cloneRepo(url,config['STORAGE_PATH'])
+def create_temp_folder(user):
+    # TODO make this clone a git repo
+    if not(os.path.exists(config['STORAGE_PATH'])):
+        os.makedirs(config['STORAGE_PATH'])
+    user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
+    git.cloneRepo(url,config['STORAGE_PATH'])

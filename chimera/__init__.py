@@ -12,14 +12,24 @@ def not_found(error):
 
 import chimera.auth as auth
 
+@app.context_processor
+def additional_context():
+    if auth.current_user.is_authenticated():
+        return {"user_id": auth.current_user.get_id()}
+    else:
+        return {}
+
 @app.route('/')
 def index():
     if auth.current_user.is_authenticated():
-        return render_template('editor.html', user=auth.current_user.get_id())
+        return render_template('editor.html')
     else:
         return render_template('banner.html')
 
 app.register_blueprint(auth.module)
+
+import chimera.users
+app.register_blueprint(chimera.users.module, url_prefix='/users')
 
 def make_json(data, status=200, headers={}):
     default_headers = {"Content-Type": "application/json"}

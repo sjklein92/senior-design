@@ -11,9 +11,6 @@ def getGitFiles(self,filePath):
 def cloneRepo(self,url,filePath):
 	git.Repo(url,filePath)
 
-def login(self):
-	pass
-	
 def statuses(self, filePath):
 	repo=git.Repo(filePath)
 	statusString=repo.git.status('-s')
