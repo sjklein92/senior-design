@@ -1,101 +1,101 @@
 [
   {
-    "name": ".gitignore"
+    "text": ".gitignore"
   },
   {
-    "name": ".ruby-version"
+    "text": ".ruby-version"
   },
   {
-    "name": "CNAME"
+    "text": "CNAME"
   },
   {
-    "name": "_config.yml"
+    "text": "_config.yml"
   },
   {
     "children": [
       {
-        "name": "nav.yml"
+        "text": "nav.yml"
       }
     ],
-    "name": "_data"
+    "text": "_data"
   },
   {
     "children": [
       {
-        "name": "footer.html"
+        "text": "footer.html"
       },
       {
-        "name": "nav.html"
+        "text": "nav.html"
       }
     ],
-    "name": "_includes"
+    "text": "_includes"
   },
   {
     "children": [
       {
-        "name": "default.html"
+        "text": "default.html"
       }
     ],
-    "name": "_layouts"
+    "text": "_layouts"
   },
   {
     "children": [
       {
-        "name": "index.html"
+        "text": "index.html"
       }
     ],
-    "name": "about"
+    "text": "about"
   },
   {
     "children": [
       {
-        "name": "index.html"
+        "text": "index.html"
       },
       {
         "children": [
           {
-            "name": "index.html"
+            "text": "index.html"
           }
         ],
-        "name": "message-from-board"
+        "text": "message-from-board"
       }
     ],
-    "name": "alumni"
+    "text": "alumni"
   },
   {
     "children": [
       {
         "type": "binary",
-        "name": "flyerargo.png"
+        "text": "flyerargo.png"
       },
       {
         "type": "binary",
-        "name": "flyerguatemala.pdf"
+        "text": "flyerguatemala.pdf"
       },
       {
         "status": "changed",
         "type": "binary",
-        "name": "flyerra.pdf"
+        "text": "flyerra.pdf"
       },
       {
         "type": "binary",
-        "name": "flyerstinghungernow.pdf"
+        "text": "flyerstinghungernow.pdf"
       }
     ],
-    "name": "flyers"
+    "text": "flyers"
   },
   {
     "children": [
       {
         "status": "created",
-        "name": "index.html"
+        "text": "index.html"
       }
     ],
     "status": "created",
-    "name": "new-folder"
+    "text": "new-folder"
   },
   {
     "status": "deleted",
-    "name": "scratch.txt"
+    "text": "scratch.txt"
   }
 ]
