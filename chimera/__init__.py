@@ -64,7 +64,17 @@ def tree_transform(tree, name):
             children.append({"text": k, "icon": "leaf"})
         else:
             children.append(tree_transform(tree[k], k))
-    ans["children"] = sorted(children)
+    def cmp(a, b):
+        if 'children' in a and not('children' in b):
+            return -1
+        if 'children' in b and not('children' in a):
+            return 1
+        if a['text'] > b['text']:
+            return 1
+        if a['text'] < b['text']:
+            return -1
+        return 0
+    ans["children"] = sorted(children, cmp=cmp)
     return ans
 
 @app.route('/api/files/<path:path>')
