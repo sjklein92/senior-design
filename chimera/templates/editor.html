@@ -48,22 +48,15 @@
   editor.getSession().setMode("ace/mode/javascript");
 </script>
 <script>
-  $("#jstree").jstree({
-      "json_data" : {
-            'ajax': {
-                'url': myURL,
-                'type': 'GET',
-                'data': function(node) {
-                    return {
-                        'nodeId': node.attr ? node.attr("id") : ''
-                    };
-                }
-            },
-            'progressive_render': true,
-            'progressive_unload': false
-         },
-      "core" : {"html_titles" : true,  "load_open" : true },
-      "plugins" : [ "themes", "json_data", "ui", "cookies", "crrm", "sort" ]
+  $(function() {
+  $('#jstree').jstree({
+    'core' : {
+      'data' : {
+        "url" : "/static/sample-listing.json",
+        "dataType" : "json" // needed only if you do not supply JSON headers
+      }
+    }
   });
+});
 </script>
 {% endblock %}
