@@ -8,6 +8,7 @@ import os
 import requests
 import tempfile
 import chimera.chigit as git
+import subprocess
 
 module = Blueprint('auth', __name__, template_folder='templates')
 
@@ -117,4 +118,4 @@ def create_temp_folder(user):
     if not(os.path.exists(config['STORAGE_PATH'])):
         os.makedirs(config['STORAGE_PATH'])
     user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
-    git.cloneRepo(url,config['STORAGE_PATH'])
+    subprocess.call(["git", "clone", config['GIT_URL'], user.folder_path])

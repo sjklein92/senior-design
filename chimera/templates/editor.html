@@ -47,26 +47,36 @@
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/javascript");
 
-  var path = "/static/sample-listing.json";
+  var path = "/api/files";
 
   $(function() {
     $('#jstree').on('activate_node.jstree', function(e, data) { 
-      if (!data.node.is_parent) {
+      if (data.node.original.type == 'file') {
         var serverPath = data.node.original.serverPath;
         editor.setValue("Hello world", -1);
       }
     }).jstree({
+      'plugins' : ['types', 'ui', 'themes'],
+      'ui' : {
+        'select_limit' : 1
+      },
       'core' : {
         'data' : {
           "url" : path,
           "dataType" : "json" // needed only if you do not supply JSON headers
         }
-      }
-
+     },
+     'types' : {
+        'file' : {
+          'valid_children' : 'none',
+          'icon' : 'jstree-file'
+        },
+        'folder' : {
+          'valid_children' : ['file', 'folder']
+        }
+     }
     });
   });
-
-  
 
   function getChildPage() {
     $("#jstree").on("activate_node.jstree", function(e, data) {

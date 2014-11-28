@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+LICENSE
+instance/application.cfg
+*.pyc
+*/*.pyc
+*/*/*.pyc
+routes.txt
