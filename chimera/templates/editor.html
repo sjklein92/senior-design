@@ -50,10 +50,11 @@
   var path = "/api/files";
 
   $(function() {
-    $('#jstree').on('activate_node.jstree', function(e, data) { 
+    $('#jstree').on('activate_node.jstree', function(e, data) {
+      console.log(data);
       if (data.node.original.type == 'file') {
         var serverPath = data.node.original.serverPath;
-        editor.setValue("Hello world", -1);
+        editor.setValue(serverPath, -1);
       }
     }).jstree({
       'plugins' : ['types', 'ui', 'themes'],

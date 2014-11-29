@@ -53,17 +53,18 @@ def files_index():
             if not(part in cur):
                 cur[part] = {}
             cur = cur[part]
-    tree2 = tree_transform(tree1, '/')
+    tree2 = tree_transform(tree1, '')
     return make_json(tree2["children"])
 
 def tree_transform(tree, name):
     children = []
-    ans = {"text": name}
+    ans = {"text": name.split('/')[-1], "type": "folder"}
     for k in tree:
         if tree[k] == {}:
-            children.append({"text": k, "icon": "leaf"})
+            # this looks wrong but git doesn't list empty folders
+            children.append({"text": k, "type": "file", "serverPath": name+"/"+k})
         else:
-            children.append(tree_transform(tree[k], k))
+            children.append(tree_transform(tree[k], name+"/"+k))
     def cmp(a, b):
         if 'children' in a and not('children' in b):
             return -1
