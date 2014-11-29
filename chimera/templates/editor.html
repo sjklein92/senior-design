@@ -45,15 +45,16 @@
 <script>
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/javascript");
+  //editor.getSession().setMode("ace/mode/javascript");
 
   var path = "/api/files";
 
   $(function() {
     $('#jstree').on('activate_node.jstree', function(e, data) {
       if (data.node.original.type == 'file') {
-        var serverPath = data.node.original.serverPath;
-        editor.setValue(serverPath, -1);
+        getDocument(data.node.original.serverPath);
+        //var serverPath = data.node.original.serverPath;
+        //editor.setValue(serverPath, -1);
       }
     }).jstree({
       'plugins' : ['types', 'ui', 'themes'],
