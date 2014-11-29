@@ -1,0 +1,113 @@
+[
+  {
+    "text": ".gitignore",
+    "type": "file"
+  },
+  {
+    "text": ".ruby-version",
+    "type": "file"
+  },
+  {
+    "text": "CNAME",
+    "type": "file"
+  },
+  {
+    "text": "_config.yml",
+    "type": "file"
+  },
+  {
+    "children": [
+      {
+        "text": "nav.yml",
+        "type": "file"
+      }
+    ],
+    "text": "_data",
+    "type": "folder"
+  },
+  {
+    "children": [
+      {
+        "text": "footer.html",
+        "type": "file"
+      },
+      {
+        "text": "nav.html",
+        "type": "file"
+      }
+    ],
+    "text": "_includes"
+  },
+  {
+    "children": [
+      {
+        "text": "default.html",
+        "type": "file"
+      }
+    ],
+    "text": "_layouts"
+  },
+  {
+    "children": [
+      {
+        "text": "index.html",
+        "type": "file"
+      }
+    ],
+    "text": "about"
+  },
+  {
+    "children": [
+      {
+        "text": "index.html",
+        "type": "file"
+      },
+      {
+        "children": [
+          {
+            "text": "index.html",
+            "type": "file"
+          }
+        ],
+        "text": "message-from-board"
+      }
+    ],
+    "text": "alumni"
+  },
+  {
+    "children": [
+      {
+        "type": "binary",
+        "text": "flyerargo.png"
+      },
+      {
+        "type": "binary",
+        "text": "flyerguatemala.pdf"
+      },
+      {
+        "status": "changed",
+        "type": "binary",
+        "text": "flyerra.pdf"
+      },
+      {
+        "type": "binary",
+        "text": "flyerstinghungernow.pdf"
+      }
+    ],
+    "text": "flyers"
+  },
+  {
+    "children": [
+      {
+        "status": "created",
+        "text": "index.html"
+      }
+    ],
+    "status": "created",
+    "text": "new-folder"
+  },
+  {
+    "status": "deleted",
+    "text": "scratch.txt"
+  }
+]

@@ -51,7 +51,6 @@
 
   $(function() {
     $('#jstree').on('activate_node.jstree', function(e, data) {
-      console.log(data);
       if (data.node.original.type == 'file') {
         var serverPath = data.node.original.serverPath;
         editor.setValue(serverPath, -1);
