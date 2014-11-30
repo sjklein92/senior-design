@@ -11,6 +11,12 @@ window.onbeforeunload = function(e) {
     }
 };
 
+window.addEventListener('hashchange', function(e) {
+    if (location.hash && location.hash.startsWith("#!")) {
+        getDocument(location.hash.replace(/^#!/,""));
+    }
+});
+
 function setupEditor(id) {
     editor = ace.edit(id);
     editor.setTheme("ace/theme/monokai");
@@ -23,6 +29,9 @@ function setupEditor(id) {
     editor.on('blur', function(e) {
         saveDocument();
     });
+    if (location.hash && location.hash.startsWith("#!")) {
+        getDocument(location.hash.replace(/^#!/,""));
+    }
 }
 
 function getBinary(path) {
@@ -87,6 +96,7 @@ function getDocument(path) {
             $("#nav-title").text(path);
             $("#editor").show();
             updatePreview();
+            location.hash = "!"+path;
         },
         "error": function(data) {
             editor.setValue("Could not load file");
@@ -139,7 +149,8 @@ function updatePreview(path) {
     if (!path) {
         path = "/preview"+editorPath.replace(/\/index\.html|\.markdown|\.md/i,"/");
     }
-    $("#preview iframe").attr("src", path);
+    $("#preview iframe").remove();
+    $("#preview").append($("<iframe>").attr("src", path));
 }
 
 function showPreview() {

@@ -14,3 +14,7 @@
 	clear: both;
 }
 
+#preview iframe {
+    min-height: 400px;
+    width: 100%;
+}
