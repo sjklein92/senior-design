@@ -89,6 +89,16 @@ def files_get(path):
         return abort(404)
     return send_file(path, 'text/plain')
 
+@app.route('/download/<path:path>')
+@auth.login_required
+def files_download(path):
+    path = os.path.abspath(os.path.join(auth.current_user.folder_path, path))
+    if not path.startswith(auth.current_user.folder_path) or not path.startswith(app.config['STORAGE_PATH']):
+        return abort(403)
+    if not os.path.exists(path):
+        return abort(404)
+    return send_file(path, as_attachment=True)
+
 @app.route('/api/files/<path:path>', methods=['PUT'])
 @auth.login_required
 def files_put(path):

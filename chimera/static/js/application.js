@@ -1,6 +1,7 @@
 var editor;
 var editorPath = "";
 var editorIsDirty = false;
+var previewIsDirty = false;
 
 window.onbeforeunload = function(e) {
     if (editorIsDirty) {
@@ -14,11 +15,36 @@ function setupEditor(id) {
     editor = ace.edit(id);
     editor.setTheme("ace/theme/monokai");
     editor.on('change', function(e) {
-        if (editorPath) editorIsDirty = true;
+        if (editorPath) {
+            editorIsDirty = true;
+            previewIsDirty = true;
+        }
     });
     editor.on('blur', function(e) {
         saveDocument();
     });
+}
+
+function getBinary(path) {
+    saveDocument();
+    beforeLoading();
+
+    var filename = path.split('/').pop();
+    var extension = filename.toLowerCase().split('.').pop();
+    $("#editor-binary a").attr('href', '/download'+path);
+    $("#editor-binary .filename").text(filename);
+
+    $("#editor").hide();
+    $("#editor-binary").show();
+
+    if (extension == "png" || extension == "jpg" ||
+        extension == "jpeg") {
+        updatePreview('/preview'+path);
+        showPreview();
+    } else {
+        updatePreview("about:blank");
+        hidePreview();
+    }
 }
 
 function getDocument(path) {
@@ -30,15 +56,20 @@ function getDocument(path) {
                  "css": "ace/mode/css",
                  "scss": "ace/mode/scss",
                  "xml": "ace/mode/liquid",
-                 "yml": "ace/mode/yaml"
+                 "yml": "ace/mode/yaml",
+                 "jpg": "binary",
+                 "jpeg": "binary",
+                 "png": "binary",
+                 "pdf": "binary"
                 };
     var filename = path.split('/').pop();
     var mode;
     if (filename.indexOf('.') != -1) {
-        var extension = filename.split('.').pop();
+        var extension = filename.toLowerCase().split('.').pop();
         mode = modes[extension];
     }
     if (!mode) mode = "ace/mode/plain_text";
+    if (mode == "binary") return getBinary(path);
 
     saveDocument();
     beforeLoading();
@@ -51,8 +82,10 @@ function getDocument(path) {
             editor.navigateFileStart();
             editorPath = path;
             editorIsDirty = false;
+            previewIsDirty = false;
             $("title").text(path + " - Chimera");
             $("#nav-title").text(path);
+            $("#editor").show();
             updatePreview();
         },
         "error": function(data) {
@@ -61,6 +94,7 @@ function getDocument(path) {
             editor.navigateFileStart();
             editorPath = "";
             editorIsDirty = false;
+            previewIsDirty = false;
             $("title").text("Chimera");
             $("#nav-title").text("Chimera");
         }
@@ -93,8 +127,12 @@ function beforeLoading() {
     $("#nav-title").text("Chimera");
     editorPath = "";
     editorIsDirty = false;
+    previewIsDirty = false;
     editor.setValue("Loading...");
     editor.getSession().setMode("ace/mode/plain_text");
+    $("#editor-unselected").hide();
+    $("#editor-binary").hide();
+    $("#editor").show();
 }
 
 function updatePreview(path) {
@@ -102,4 +140,14 @@ function updatePreview(path) {
         path = "/preview"+editorPath.replace(/\/index\.html|\.markdown|\.md/i,"/");
     }
     $("#preview iframe").attr("src", path);
+}
+
+function showPreview() {
+    $("#preview-col").show();
+    $("#editor-col").removeClass("col-sm-10").addClass("col-sm-5");
+}
+
+function hidePreview() {
+    $("#preview-col").hide();
+    $("#editor-col").removeClass("col-sm-5").addClass("col-sm-10");
 }

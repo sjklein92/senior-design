@@ -2,15 +2,33 @@
 {% block title %}Editor{% endblock %}
 {% block content %}
 <div class="row">
-  <div class="col-sm-2">
+  <div id="tree-col" class="col-sm-2">
+    <br/>
     <div id="jstree" style="float: left; margin-right: 50px;">
 
     </div>
   </div>
-  <div class="col-sm-5">
-    <pre id="editor"></pre>
+  <div id="editor-col" class="col-sm-10">
+    <br/>
+    <pre id="editor" style="display:none"></pre>
+    <div id="editor-unselected">
+      <h2>No file selected</h2>
+      <p>Select something in the left pane to start editing.</p>
+    </div>
+    <div id="editor-binary" style="display:none">
+      <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Download <span class="filename"></span></a>
+    </div>
+    <div id="actions"/>
+      <button type="submit" class="btn btn-default preview">
+        <span class="glyphicon glyphicon-eye-open"></span> Preview
+      </button>
+      <button type="submit" class="btn btn-default publish">
+        <span class="glyphicon glyphicon-upload"></span> Publish
+      </button>
+    </div>
   </div>
-  <div class="col-sm-5">
+  <div id="preview-col" class="col-sm-5" style="display:none">
+    <a href="#" onclick="hidePreview()">Close Preview &times;</a>
     <div id="preview">
       <iframe src="/preview/" style="width: 400px; height: 400px;">Your browser doesn't support iFrames.
         #document
@@ -27,14 +45,6 @@
   </div>
 </div>
 
-<div id="actions"/>
-  <button type="submit" class="btn btn-default preview">
-    <span class="glyphicon glyphicon-eye-open"></span> Preview
-  </button>
-  <button type="submit" class="btn btn-default publish">
-    <span class="glyphicon glyphicon-upload"></span> Publish
-  </button>
-</div>
 {% endblock %}
 
 {% block foot %}
@@ -44,15 +54,20 @@
   setupEditor("editor");
 
   $("#actions .preview").click(function(e) {
-    $.ajax("/api/generate", {
-      "type": "POST",
-      "success": function(data) {
-        updatePreview();
-      },
-      "error": function(data) {
-        updatePreview("about:blank");
-      }
-    });
+    if (previewIsDirty) {
+      $.ajax("/api/generate", {
+        "type": "POST",
+        "success": function(data) {
+          updatePreview();
+          showPreview();
+        },
+        "error": function(data) {
+          updatePreview("about:blank");
+        }
+      });
+    } else {
+      showPreview();
+    }
   });
 
   $(function() {

@@ -88,7 +88,7 @@ def callback():
     user = User.get(email)
     if user.is_authenticated() and user.is_active():
         user.access_token = token
-        if not user.folder_path:
+        if not user.folder_path or not os.path.isdir(user.folder_path):
             create_temp_folder(user)
         user.save()
         login_user(user)
@@ -119,3 +119,9 @@ def create_temp_folder(user):
         os.makedirs(config['STORAGE_PATH'])
     user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
     subprocess.call(["git", "clone", config['GIT_URL'], user.folder_path])
+
+    # build the Jekyll site
+    old_pwd = os.path.abspath(os.curdir)
+    os.chdir(user.folder_path)
+    subprocess.call(["jekyll", "build", "--config", "_config.yml,"+os.path.join(old_pwd,"jekyll_config.yml")])
+    os.chdir(old_pwd)
