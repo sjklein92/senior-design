@@ -43,18 +43,12 @@
 <script src="/static/libs/jstree/jstree.min.js"></script>
 <script src="/static/libs/ace/ace.js"></script>
 <script>
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  //editor.getSession().setMode("ace/mode/javascript");
-
-  var path = "/api/files";
+  setupEditor("editor");
 
   $(function() {
     $('#jstree').on('activate_node.jstree', function(e, data) {
       if (data.node.original.type == 'file') {
         getDocument(data.node.original.serverPath);
-        //var serverPath = data.node.original.serverPath;
-        //editor.setValue(serverPath, -1);
       }
     }).jstree({
       'plugins' : ['types', 'ui', 'themes'],
@@ -63,7 +57,7 @@
       },
       'core' : {
         'data' : {
-          "url" : path,
+          "url" : "/api/files",
           "dataType" : "json" // needed only if you do not supply JSON headers
         }
      },
@@ -78,13 +72,5 @@
      }
     });
   });
-
-  function getChildPage() {
-    $("#jstree").on("activate_node.jstree", function(e, data) {
-          var selected = $('#jstree').jstree(true).get_selected(true)[0];    
-          alert("I'm a directory!");
-    })
-  }
-
 </script>
 {% endblock %}
