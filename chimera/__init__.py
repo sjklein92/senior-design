@@ -1,6 +1,7 @@
 from flask import Flask, render_template, abort, json, send_file, request
 import os
 import chimera.chigit as git
+import subprocess
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('chimera.default_config')
@@ -121,3 +122,12 @@ def preview(path):
     if not os.path.exists(path):
         return abort(404)
     return send_file(path)
+
+@app.route('/api/generate', methods=['POST'])
+@auth.login_required
+def generate_preview():
+    old_pwd = os.path.abspath(os.curdir)
+    os.chdir(auth.current_user.folder_path)
+    subprocess.call(["jekyll", "build", "--config", "_config.yml,"+os.path.join(old_pwd,"jekyll_config.yml")])
+    os.chdir(old_pwd)
+    return make_plain('Updated')

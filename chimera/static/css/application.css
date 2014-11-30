@@ -1,22 +1,12 @@
-.container {
-	
-}
-
 #jstree {
 	display: block; 
-	float: left;
+	/*float: left;*/
 	padding: 10px 10px;
 	border-radius: 8px;
 }
 
 #editor {
-	height: 400px;
-	width: 400px;
-}
-
-#preview {
-	float: left;
-	margin-left: 40px;
+	min-height: 400px;
 }
 
 #actions {
