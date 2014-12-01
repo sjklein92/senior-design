@@ -56,6 +56,23 @@ function getBinary(path) {
     }
 }
 
+function saveBinary(path) {
+
+     $.ajax("/api/files"+editorPath, {
+        "type": "PUT",
+        "data": data,
+        "contentType": "image",
+        "processData": false,
+        "success": function(data) {
+            console.log("Upload "+editorPath);
+        },
+        "error": function(data) {
+            console.log("Failed to upload "+editorPath);
+            editorIsDirty = true;
+        }
+    });
+}
+
 function getDocument(path) {
     var modes = {"markdown": "ace/mode/markdown",
                  "md": "ace/mode/markdown",

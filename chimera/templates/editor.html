@@ -18,6 +18,9 @@
     <div id="editor-binary" style="display:none">
       <h2>Download</h2>
       <p><a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Download <span class="filename"></span></a></p>
+      <h2>Upload</h2>
+      <submit class="btn btn-primary"><span class="glyphicon glyphicon-upload"></span> Upload</submit>
+      <input id="input-binary" type="file" class="file">
     </div>
     <div id="actions"/>
       <button type="submit" class="btn btn-default preview">
@@ -64,6 +67,11 @@
   $("#actions .publish").click(function(e) {
     saveDocument();
     location.href = '/publish';
+  });
+
+  $("editor-binary .upload").click(function(e) {
+    saveBinary();
+    location.href = '/upload';
   });
 
   $(function() {
