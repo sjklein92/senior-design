@@ -45,7 +45,7 @@ def make_plain(data, status=200, headers={}):
 @app.route('/api/files')
 @auth.login_required
 def files_index():
-    raw = git.getGitFiles(None, auth.current_user.folder_path)
+    raw = git.getGitFiles(auth.current_user.folder_path)
     tree1 = {}
     for f in raw:
         parts = f.split(os.path.sep)
