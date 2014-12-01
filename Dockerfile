@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
     couchdb\
     git\
     libv8-dev\
+    openssh-client\
     python\
     python-pip\
     ruby2.0\
@@ -12,6 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends\
 RUN sed -i 's/127\.0\.0\.1/0.0.0.0/' /etc/couchdb/default.ini &&\
     install -o couchdb -g couchdb -d /var/run/couchdb &&\
     gem2.0 install jekyll therubyracer
+RUN mkdir -p /root/.ssh &&\
+    echo "IdentityFile /app/instance/id_rsa_chimera" > /root/.ssh/config &&\
+    ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 COPY requirements.txt /
 RUN pip install -r /requirements.txt

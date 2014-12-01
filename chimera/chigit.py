@@ -7,7 +7,7 @@ def commit(filePath, message):
     os.chdir(filePath)
     if subprocess.call(["git", "commit", "-a" ,"-m", message]) != 0:
         os.chdir(old_pwd)
-        return false
+        return False
     success = (subprocess.call(["git", "push"]) == 0)
     os.chdir(old_pwd)
     return success

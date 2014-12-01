@@ -118,11 +118,11 @@ def create_temp_folder(user):
     if not(os.path.exists(config['STORAGE_PATH'])):
         os.makedirs(config['STORAGE_PATH'])
     user.folder_path = tempfile.mkdtemp(dir=config['STORAGE_PATH'])
-    print config['BRANCH']
     subprocess.call(["git", "clone", "-b", config['BRANCH'], config['GIT_URL'], user.folder_path])
 
-    # build the Jekyll site
     old_pwd = os.path.abspath(os.curdir)
     os.chdir(user.folder_path)
+    subprocess.call(["git", "config", "user.email", user.get_id()])
+    subprocess.call(["git", "config", "user.name", "Chimera"])
     subprocess.call(["jekyll", "build", "--config", "_config.yml,"+os.path.join(old_pwd,"jekyll_config.yml")])
     os.chdir(old_pwd)
