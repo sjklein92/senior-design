@@ -4,6 +4,26 @@
 	padding: 10px 10px;
 	border-radius: 8px;
 }
+#jstree .glyphicon-remove, #file-statuses .glyphicon-remove {
+    color: #c9302c;
+}
+#jstree .glyphicon-plus, #file-statuses .glyphicon-plus {
+    color: #449d44;
+}
+#jstree .glyphicon-pencil, #file-statuses .glyphicon-pencil {
+    color: #3071a9;
+}
+#jstree .glyphicon-file, #file-statuses .glyphicon-file {
+    color: #aaa;
+}
+#file-statuses p {
+    line-height: 1;
+    vertical-align: middle;
+    margin: 0.7em 0;
+}
+#file-statuses .glyphicon {
+    margin-right: 0.7em;
+}
 
 #editor {
 	min-height: 400px;

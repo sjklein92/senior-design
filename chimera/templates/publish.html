@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Publish{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-1">
+    <h1>Publish changes</h1>
+  </div>
+</div>
+<div class="row">
+  <div id="file-statuses" class="col-sm-3 col-sm-offset-2">
+    {% for file, status in files %}
+      <p><span class="glyphicon glyphicon-{{status}}"></span> {{file}}</p>
+    {% endfor %}
+  </div>
+  <div class="col-sm-4">
+    <form role="form" action="/publish/" method="POST">
+      <p>Please enter a short summary of your changes.</p>
+      <div class="form-group">
+        <input type="text" class="form-control" name="description" required/>
+      </div>
+      <button type="submit" class="btn btn-lg btn-success">
+        <span class="glyphicon glyphicon-check"></span> Publish
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

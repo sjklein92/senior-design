@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, json, send_file, request
+from flask import Flask, render_template, abort, json, send_file, request, flash, redirect
 import os
 import chimera.chigit as git
 import subprocess
@@ -45,7 +45,8 @@ def make_plain(data, status=200, headers={}):
 @app.route('/api/files')
 @auth.login_required
 def files_index():
-    raw = git.getGitFiles(auth.current_user.folder_path)
+    raw = git.getGitFiles( auth.current_user.folder_path)
+    statuses = git.statuses( auth.current_user.folder_path)
     tree1 = {}
     for f in raw:
         parts = f.split(os.path.sep)
@@ -54,18 +55,29 @@ def files_index():
             if not(part in cur):
                 cur[part] = {}
             cur = cur[part]
-    tree2 = tree_transform(tree1, '')
+    tree2 = tree_transform(tree1, '', statuses)
     return make_json(tree2["children"])
 
-def tree_transform(tree, name):
+def tree_transform(tree, name, statuses):
     children = []
     ans = {"text": name.split('/')[-1], "type": "folder"}
     for k in tree:
         if tree[k] == {}:
             # this looks wrong but git doesn't list empty folders
-            children.append({"text": k, "type": "file", "serverPath": name+"/"+k})
+            child = {"text": k, "type": "file", "serverPath": name+"/"+k}
+            if child['serverPath'] in statuses:
+                st = statuses[child['serverPath']][1]
+                if st == 'M':
+                    child['icon'] = 'glyphicon glyphicon-pencil'
+                elif st == '?':
+                    child['icon'] = 'glyphicon glyphicon-plus'
+                elif st == 'D':
+                    child['icon'] = 'glyphicon glyphicon-remove'
+            else:
+                child['icon'] = 'glyphicon glyphicon-file'
+            children.append(child)
         else:
-            children.append(tree_transform(tree[k], name+"/"+k))
+            children.append(tree_transform(tree[k], name+"/"+k, statuses))
     def cmp(a, b):
         if 'children' in a and not('children' in b):
             return -1
@@ -141,3 +153,23 @@ def generate_preview():
     subprocess.call(["jekyll", "build", "--config", "_config.yml,"+os.path.join(old_pwd,"jekyll_config.yml")])
     os.chdir(old_pwd)
     return make_plain('Updated')
+
+@app.route('/publish/', methods=['GET','POST'])
+@auth.permission_required('publish')
+def publish():
+    if request.method == 'GET':
+        statuses = git.statuses(None, auth.current_user.folder_path)
+        files = []
+        for f in statuses:
+            st = statuses[f][1]
+            if st == 'M':
+                files.append((f, 'pencil'))
+            elif st == '?':
+                files.append((f, 'plus'))
+            elif st == 'D':
+                files.append((f, 'remove'))
+        files = sorted(files)
+        return render_template('publish.html', files=files)
+    else:
+        flash('Published.', 'success')
+        return redirect('/')

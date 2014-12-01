@@ -61,6 +61,11 @@
     }
   });
 
+  $("#actions .publish").click(function(e) {
+    saveDocument();
+    location.href = '/publish';
+  });
+
   $(function() {
     $('#jstree').on('activate_node.jstree', function(e, data) {
       if (data.node.original.type == 'file') {
