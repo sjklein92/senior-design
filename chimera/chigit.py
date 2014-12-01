@@ -1,11 +1,16 @@
 import git
 import os
+import subprocess
 
-
-
-def commit(message):
-	subprocess.call(["git", "commit", "-a" ,"-m",message])
-	subprocess.call(["git", "push"])
+def commit(filePath, message):
+    old_pwd = os.path.abspath(os.curdir)
+    os.chdir(filePath)
+    if subprocess.call(["git", "commit", "-a" ,"-m", message]) != 0:
+        os.chdir(old_pwd)
+        return false
+    success = (subprocess.call(["git", "push"]) == 0)
+    os.chdir(old_pwd)
+    return success
 
 def getGitFiles( filePath):
     repo = git.Repo(filePath)

@@ -158,7 +158,7 @@ def generate_preview():
 @auth.permission_required('publish')
 def publish():
     if request.method == 'GET':
-        statuses = git.statuses(None, auth.current_user.folder_path)
+        statuses = git.statuses(auth.current_user.folder_path)
         files = []
         for f in statuses:
             st = statuses[f][1]
@@ -171,5 +171,12 @@ def publish():
         files = sorted(files)
         return render_template('publish.html', files=files)
     else:
-        flash('Published.', 'success')
-        return redirect('/')
+        if not('description' in request.form) or not(request.form['description']):
+            flash('You must provide a description.', 'danger')
+            return redirect('/publish/')
+        if git.commit(auth.current_user.folder_path, request.form['description']):
+            flash('Published.', 'success')
+            return redirect('/')
+        else:
+            flash('There was an error with publishing. Contact your administrator.', 'danger')
+            return redirect('/')
