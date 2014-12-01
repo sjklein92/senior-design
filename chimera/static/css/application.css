@@ -4,6 +4,18 @@
 	padding: 10px 10px;
 	border-radius: 8px;
 }
+#jstree .glyphicon-remove {
+    color: #c9302c;
+}
+#jstree .glyphicon-plus {
+    color: #449d44;
+}
+#jstree .glyphicon-pencil {
+    color: #3071a9;
+}
+#jstree .glyphicon-file {
+    color: #aaa;
+}
 
 #editor {
 	min-height: 400px;
