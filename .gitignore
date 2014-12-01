@@ -55,3 +55,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# keys
+instance/id_rsa_chimera
+instance/id_rsa_chimera.pub
