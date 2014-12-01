@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, json, send_file, request
+from flask import Flask, render_template, abort, json, send_file, request, flash, redirect
 import os
 import chimera.chigit as git
 import subprocess
@@ -153,3 +153,23 @@ def generate_preview():
     subprocess.call(["jekyll", "build", "--config", "_config.yml,"+os.path.join(old_pwd,"jekyll_config.yml")])
     os.chdir(old_pwd)
     return make_plain('Updated')
+
+@app.route('/publish/', methods=['GET','POST'])
+@auth.permission_required('publish')
+def publish():
+    if request.method == 'GET':
+        statuses = git.statuses(None, auth.current_user.folder_path)
+        files = []
+        for f in statuses:
+            st = statuses[f][1]
+            if st == 'M':
+                files.append((f, 'pencil'))
+            elif st == '?':
+                files.append((f, 'plus'))
+            elif st == 'D':
+                files.append((f, 'remove'))
+        files = sorted(files)
+        return render_template('publish.html', files=files)
+    else:
+        flash('Published.', 'success')
+        return redirect('/')
