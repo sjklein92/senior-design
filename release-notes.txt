@@ -10,9 +10,9 @@ Features:
 + Publish and deploy changes.
 
 Known bugs:
-+ When switching between files, preview can get out of sync.
-  A workaround is to make any change to the current file, then
-  click 'Preview' again to regenerate it.
++ When switching between files, preview can get out of sync.  A workaround is
+  to make any change to the current file, then click 'Preview' again to
+  regenerate it.
 
 Not yet implemented:
 + User management

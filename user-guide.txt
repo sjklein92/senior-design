@@ -1,26 +1,26 @@
 Chimera User Guide
 ==================
 
-Chimera is a content management system for static websites. If you're
-reading this guide, your webmaster should have already set up a
-Chimera instance and given you an address where you can log in -
-probably something like http://admin.example.com
+Chimera is a content management system for static websites. If you're reading
+this guide, your webmaster should have already set up a Chimera instance and
+given you an address where you can log in - probably something like
+http://admin.example.com
 
-Log in with your Google account by clicking the button in the top right
-corner. If you cannot log in, make sure your webmaster has given you
-access and that you are using the correct account, if you have several.
+Log in with your Google account by clicking the button in the top right corner.
+If you cannot log in, make sure your webmaster has given you access and that you
+are using the correct account, if you have several.
 
-Once logged in, you should see a file browser on the left hand side of
-the page. Click on a file to open it. Your changes are saved
-automatically as you work. You can click 'Preview' to see a preview of
-your edits before publishing. This is not automatically updated - you
-will need to click the button again to regenerate the preview.
+Once logged in, you should see a file browser on the left hand side of the page.
+Click on a file to open it. Your changes are saved automatically as you work.
+You can click 'Preview' to see a preview of your edits before publishing. This
+is not automatically updated - you will need to click the button again to
+regenerate the preview.
 
-When you are done editing, click on 'Publish' to make your changes
-live. You will see a summary of which files you've changed, and a text
-box where you should enter a short description of your edits. Click on
-'Publish' again, and your website will be updated with your changes.
+When you are done editing, click on 'Publish' to make your changes live. You
+will see a summary of which files you've changed, and a text box where you
+should enter a short description of your edits. Click on 'Publish' again, and
+your website will be updated with your changes.
 
-Some things to keep in mind: with great power comes great
-responsibility. Make sure you preview your changes before publishing,
-and double-check that everything looks correct after you've published.
+Some things to keep in mind: with great power comes great responsibility. Make
+sure you preview your changes before publishing, and double-check that
+everything looks correct after you've published.
