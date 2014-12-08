@@ -1,0 +1,35 @@
+Installation
+============
+
+The preferred method of deployment is as a Docker container. If you
+do not already have a Docker host, first follow the Docker install
+guide: https://docs.docker.com/installation/ubuntulinux/
+The rest of this guide assumes you have a server with Docker installed,
+and a domain name pointing to that server.
+
+For authentication, you will need to obtain OAuth credentials from the Google Developers Console: https://console.developers.google.com/
+Click on 'Create Project' and give it a descriptive name. When the
+project is created, go to APIs & auth -> Credentials -> Create New Client ID.
+The Application Type is 'Web application'. Authorized Javascript origins should be the domain on which you are hosting the instance, and authorized callback URLs should be the path /login/callback at that domain.
+You will need the 'Client ID' and 'Client secret' for your Chimera config.
+
+Now you can install Chimera on your web server.
+
+1. Unpack the source tarball. Build the Docker image from within the
+    resulting folder:
+  docker build -t deltawhy/chimera .
+
+2. Create an instance folder. Copy `instance/application.cfg.example` to `application.cfg` in this folder. Change SUPER_ADMIN to the email of the Google account you will use to log in to Chimera. Change the OAuth client ID and secret to the values you obtained earlier. Change STORAGE_PATH to `/data`. Finally, change GIT_URL and BRANCH to point to the site repository you wish to edit.
+
+3. Create a data container. This makes it easier to update the application without losing your stored data.
+  docker run -d -v /path/to/your/instance:/app/instance -v /data -v /var/lib/couchdb --name chimera-data ubuntu:trusty true
+
+4. Start the application container.
+  docker run -d --volumes-from chimera-data -p 80:8080 --name chimera deltawhy/chimera
+
+5. Finally, you'll need to give your Chimera instance commit access to your website repository.
+    For GitHub, creating a dedicated account for the editor is recommended. The public key can be found in your instance folder at
+    `instance/id_rsa_chimera.pub` after the application is started.
+
+Once the app is installed, go to your domain in a browser. You should
+be able to log in with your super admin account and edit your website.

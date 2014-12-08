@@ -3,7 +3,7 @@ chimera
 
 Website editor for Jekyll sites
 
-# Development environment setup
+## Development environment setup
 1. Install virtualenv and virtualenvwrapper
 
   ```
@@ -45,7 +45,7 @@ Website editor for Jekyll sites
 
   **Note:** The `ruby1.9.1` package on Debian-based systems is actually Ruby 1.9.3.
 
-# Deployment with Docker
+## Deployment with Docker
 1. From the root of this repository, build the Docker image:
 
   ```

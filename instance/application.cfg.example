@@ -7,3 +7,5 @@ CSRF_SESSION_KEY = "change this to a long random string"
 SECRET_KEY = "change this to a different long random string"
 
 STORAGE_PATH = "/tmp/chimera"
+GIT_URL = "git@github.com:DeltaWhy/jekyll-test.git"
+BRANCH = "gh-pages"

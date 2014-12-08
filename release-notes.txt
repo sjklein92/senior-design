@@ -1,0 +1,20 @@
+Chimera v0.1
+============
+
+First version.
+
+Features:
++ Creates a working copy of the website.
++ Browse and edit source files.
++ Preview changes before publishing.
++ Publish and deploy changes.
+
+Known bugs:
++ When switching between files, preview can get out of sync.
+  A workaround is to make any change to the current file, then
+  click 'Preview' again to regenerate it.
+
+Not yet implemented:
++ User management
++ File uploads
++ File deletion
